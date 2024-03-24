@@ -25,6 +25,7 @@ from airflow.providers.cohere.hooks.cohere import CohereHook
 
 if TYPE_CHECKING:
     from cohere.core.request_options import RequestOptions
+
     from airflow.utils.context import Context
 
 

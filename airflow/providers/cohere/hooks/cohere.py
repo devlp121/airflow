@@ -17,15 +17,18 @@
 # under the License.
 from __future__ import annotations
 
-import typing
 import warnings
 from functools import cached_property
+from typing import TYPE_CHECKING, Any
 
 import cohere
 from cohere.core.request_options import RequestOptions
 
 from airflow.exceptions import AirflowProviderDeprecationWarning
 from airflow.hooks.base import BaseHook
+
+if TYPE_CHECKING:
+    from cohere.core.request_options import RequestOptions
 
 
 class CohereHook(BaseHook):
@@ -88,7 +91,7 @@ class CohereHook(BaseHook):
         return embeddings
 
     @classmethod
-    def get_ui_field_behaviour(cls) -> dict[str, typing.Any]:
+    def get_ui_field_behaviour(cls) -> dict[str, Any]:
         return {
             "hidden_fields": ["schema", "login", "port", "extra"],
             "relabeling": {
