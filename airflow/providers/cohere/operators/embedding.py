@@ -24,8 +24,8 @@ from airflow.models import BaseOperator
 from airflow.providers.cohere.hooks.cohere import CohereHook
 
 if TYPE_CHECKING:
-    from airflow.utils.context import Context
     from cohere.core.request_options import RequestOptions
+    from airflow.utils.context import Context
 
 
 class CohereEmbeddingOperator(BaseOperator):
@@ -65,7 +65,12 @@ class CohereEmbeddingOperator(BaseOperator):
     @cached_property
     def hook(self) -> CohereHook:
         """Return an instance of the CohereHook."""
-        return CohereHook(conn_id=self.conn_id, timeout=self.timeout, max_retries=self.max_retries, request_options=self.request_options)
+        return CohereHook(
+            conn_id=self.conn_id,
+            timeout=self.timeout,
+            max_retries=self.max_retries,
+            request_options=self.request_options,
+        )
 
     def execute(self, context: Context) -> list[list[float]]:
         """Embed texts using Cohere embed services."""

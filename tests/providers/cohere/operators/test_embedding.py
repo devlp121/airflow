@@ -50,7 +50,5 @@ def test_cohere_embedding_operator(cohere_client, get_connection):
     )
 
     val = op.execute(context={})
-    cohere_client.assert_called_once_with(
-        api_key=api_key, base_url=base_url, timeout=timeout
-    )
+    cohere_client.assert_called_once_with(api_key=api_key, base_url=base_url, timeout=timeout)
     assert val == embedded_obj

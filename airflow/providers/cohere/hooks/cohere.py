@@ -69,19 +69,16 @@ class CohereHook(BaseHook):
         self.request_options = request_options
         if self.max_retries:
             warnings.warn(
-                        "Parameter `max_retries` is deprecated"
-                        "Please use `request_options` instead.",
-                        AirflowProviderDeprecationWarning,
-                        stacklevel=2,
-                    )
+                "Parameter `max_retries` is deprecated. Please use `request_options` instead.",
+                AirflowProviderDeprecationWarning,
+                stacklevel=2,
+            )
             self.request_options.update(max_retries=self.max_retries)
 
     @cached_property
     def get_conn(self) -> cohere.Client:  # type: ignore[override]
         conn = self.get_connection(self.conn_id)
-        return cohere.Client(
-            api_key=conn.password, timeout=self.timeout, base_url=conn.host
-        )
+        return cohere.Client(api_key=conn.password, timeout=self.timeout, base_url=conn.host)
 
     def create_embeddings(
         self, texts: list[str], model: str = "embed-multilingual-v2.0"
